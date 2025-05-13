@@ -15,7 +15,9 @@ RUN apt-get update && apt-get install -y \
 # 必要なライブラリのインストール
 RUN pip install --upgrade pip && \
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
-    pip install opencv-python jupyterlab matplotlib scikit-image
+    pip install opencv-python jupyterlab matplotlib scikit-image tqdm
+
+COPY . /app
 
 # JupyterLabを起動するための設定
 EXPOSE 8888

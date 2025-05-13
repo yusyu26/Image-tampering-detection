@@ -1,1 +1,5 @@
-CASIA2.0/
+data/
+glcm/
+results/
+checkpoints/
+.ipynb_checkpoints/
