@@ -1,5 +1,13 @@
+# 重いファイル群
 data/
 glcm/
-results/
+tfrecords/
 checkpoints/
+
+# Pythonキャッシュなど
+__pycache__/
+*.pyc
+*.log
+
+# ColabやJupyterの一時ファイル
 .ipynb_checkpoints/

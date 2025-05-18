@@ -1,5 +1,5 @@
 import sys, numpy as np, torch
-from nets import DepthwiseSeparableCNN
+from model.network import DepthwiseSeparableCNN
 
 model = DepthwiseSeparableCNN()
 model.load_state_dict(torch.load("checkpoints/casia2_cnn.pt", map_location="cpu"))
