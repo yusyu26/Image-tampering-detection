@@ -21,7 +21,7 @@ def input_fn(tfrecord_path, batch_size):
     return dataset
 
 def train():
-    batch_size = 16
+    batch_size = 2
     num_epochs = 10
     learning_rate = 0.0005
 
@@ -39,23 +39,36 @@ def train():
     saver = tf.train.Saver()
 
     with tf.Session() as sess:
+        print("Initializing variables...")
         sess.run(tf.global_variables_initializer())
+        print("Initialization complete.")
 
         for epoch in range(num_epochs):
+            print(f"\n[Epoch {epoch+1}] Starting...")
             avg_loss = 0
             avg_acc = 0
             steps = 0
+
             try:
                 while True:
                     _, l, a = sess.run([train_op, loss, acc])
                     avg_loss += l
                     avg_acc += a
                     steps += 1
+
+                    # ↓ ステップごとの進捗表示（10ステップごとに表示）
+                    if steps % 10 == 0:
+                        print(f"  Step {steps} - Loss: {l:.4f}, Acc: {a:.4f}")
             except tf.errors.OutOfRangeError:
                 pass
 
-            print(f"Epoch {epoch+1} Loss: {avg_loss/steps:.4f}  Accuracy: {avg_acc/steps:.4f}")
+            if steps > 0:
+                print(f"[Epoch {epoch+1}] Finished - Avg Loss: {avg_loss/steps:.4f}, Avg Acc: {avg_acc/steps:.4f}")
+            else:
+                print(f"[Epoch {epoch+1}] Skipped: No data processed.")
+
             saver.save(sess, "checkpoints/model.ckpt")
+            print(f"[Epoch {epoch+1}] Model saved to checkpoints/model.ckpt")
 
 if __name__ == "__main__":
     train()
